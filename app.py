@@ -1,6 +1,8 @@
 import pickle
 import streamlit as st
 import requests
+import os
+
 
 
 def fetch_poster(movie_id):
@@ -28,9 +30,15 @@ def recommend(movie):
 
 
 st.header('Movie Recommender System')
-movies = pickle.load(open('C:\\Users\\mades\\PycharmProjects\\MovieRecommenderSystem\\movie_list.pkl', 'rb'))
-similarity = pickle.load(open('C:\\Users\\mades\\PycharmProjects\\MovieRecommenderSystem\\similarity.pkl', 'rb'))
 
+
+# Use relative paths or dynamically construct file paths
+current_dir = os.path.dirname(os.path.abspath(__file__))
+movie_list_path = os.path.join(current_dir, 'movie_list.pkl')
+similarity_path = os.path.join(current_dir, 'similarity.pkl')
+
+movies = pickle.load(open(movie_list_path, 'rb'))
+similarity = pickle.load(open(similarity_path, 'rb'))
 
 movie_list = movies['title'].values
 selected_movie = st.selectbox(
